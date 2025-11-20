@@ -18,17 +18,34 @@ model User {
     gender    String
     role      UserRole?
     workouts  Workout?  @relation("ClientWorkoutRelation")
+    diet      Diet?     @relation("ClientDietRelation")
     password  String
 }
 
 model Exercise {
-    id        String  @id @default(cuid())
+    id        String   @id @default(cuid())
     name      String
     sets      Int
     reps      Int
     day       Day
-    workout   Workout @relation(fields: [workoutId], references: [id])
+    workout   Workout  @relation(fields: [workoutId], references: [id])
     workoutId String
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}
+
+model Meal {
+    id          String   @id @default(cuid())
+    name        String
+    description String
+    dietId      String
+    cal         Int?
+    protein Int?
+    type MealType
+    day       Day
+    diet        Diet     @relation(fields: [dietId], references: [id])
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
 }
 
 model Workout {
@@ -37,6 +54,14 @@ model Workout {
     exercises Exercise[]
     clientId  Int        @unique
     client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id])
+}
+
+model Diet {
+    id       String @id @default(cuid())
+    name     String
+    meals    Meal[]
+    clientId Int    @unique
+    client   User   @relation("ClientDietRelation", fields: [clientId], references: [id])
 }
 
 enum Day {
@@ -52,4 +77,11 @@ enum Day {
 enum UserRole {
     TRAINER
     CLIENT
+}
+
+enum MealType {
+    BREKFAST
+    LUNCH
+    DINNER
+    SNACK
 }
