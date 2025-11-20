@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters", "queryCompiler"]  
+  binaryTargets = ["native"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  firstName String
+  lastName String
+  email String @unique 
+  weight Int
+  height Int
+  age Int
+  gender String
+  role UserRole?
+  password String
+}
+
+enum UserRole {
+  TRAINER
+  CLIENT
+}
