@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native"]
 }
 
@@ -8,16 +8,45 @@ datasource db {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   firstName String
-  lastName String
-  email String @unique 
-  weight Int
-  height Int
-  age Int
-  gender String
-  role UserRole?
-  password String
+  lastName  String
+  email     String    @unique
+  weight    Int
+  height    Int
+  age       Int
+  gender    String
+  role      UserRole?
+  workouts  Workout[] @relation("ClientWorkoutRelation")
+  password  String
+}
+
+model Exercise {
+  id        String  @id @default(cuid())
+  name      String
+  sets      Int
+  reps      Int
+  day       Day
+  workout   Workout @relation(fields: [workoutId], references: [id])
+  workoutId String
+}
+
+model Workout {
+  id        String     @id @default(cuid())
+  name      String
+  exercises Exercise[]
+  clientId  Int
+  client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id])
+}
+
+enum Day {
+  MONDAY
+  TUESEDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
 }
 
 enum UserRole {
