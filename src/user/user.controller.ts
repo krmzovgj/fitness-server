@@ -12,7 +12,7 @@ export class UserController {
     @UseGuards(AuthGuard)
     getMe(@Req() req: Request) {
         const userId = req.user.id;
-        
+
         return this.userService.getUserById(userId);
     }
 
@@ -20,5 +20,11 @@ export class UserController {
     @UseGuards(AuthGuard)
     createClient(@Body() dto: CreateAccountDto) {
         return this.userService.createUser(dto);
+    }
+
+    @Get('client')
+    @UseGuards(AuthGuard)
+    getClients() {
+        return this.userService.getClients();
     }
 }

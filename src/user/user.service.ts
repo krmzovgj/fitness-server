@@ -55,7 +55,7 @@ export class UserService {
             where: {
                 id,
             },
-            select: userPublicFields
+            select: userPublicFields,
         });
 
         if (!user) {
@@ -63,5 +63,14 @@ export class UserService {
         }
 
         return user;
+    }
+
+    async getClients() {
+        return await this.prisma.user.findMany({
+            where: {
+                role: 'CLIENT',
+            },
+            select: userPublicFields,
+        });
     }
 }
