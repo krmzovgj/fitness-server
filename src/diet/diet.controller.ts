@@ -10,13 +10,17 @@ import {
 import { DietService } from './diet.service';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateDietDto } from './dto/create-diet.dto';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles.decorator';
+import { UserRole } from 'src/auth/roles.enum';
 
 @Controller('diet')
 export class DietController {
     constructor(private dietService: DietService) {}
 
     @Post()
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(UserRole.TRAINER)
     createDiet(@Body() dto: CreateDietDto) {
         return this.dietService.createDiet(dto);
     }

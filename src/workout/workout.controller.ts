@@ -10,13 +10,17 @@ import {
 import { AuthGuard } from 'src/auth/auth.guard';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { WorkoutService } from './workout.service';
+import { RolesGuard } from 'src/auth/roles.guard';
+import { Roles } from 'src/auth/roles.decorator';
+import { UserRole } from 'src/auth/roles.enum';
 
 @Controller('workout')
 export class WorkoutController {
     constructor(private workoutService: WorkoutService) {}
 
     @Post()
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(UserRole.TRAINER)
     createWorkout(@Body() dto: CreateWorkoutDto) {
         return this.workoutService.createWorkout(dto);
     }
