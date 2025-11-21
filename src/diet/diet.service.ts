@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDietDto } from './dto/create-diet.dto';
 
@@ -26,24 +30,36 @@ export class DietService {
     }
 
     async getClientsDiet(clientId: number) {
-        if(!clientId) {
-            throw new BadRequestException("Client id is required")
+        if (!clientId) {
+            throw new BadRequestException('Client id is required');
         }
 
         const client = await this.prisma.diet.findUnique({
             where: {
-                clientId
-            }
-        })
+                clientId,
+            },
+        });
 
-        if(!client) {
-            throw new NotFoundException("Client not found")
+        if (!client) {
+            throw new NotFoundException('Client not found');
         }
 
         return await this.prisma.diet.findUnique({
             where: {
-                clientId
-            }
-        })
+                clientId,
+            },
+        });
+    }
+
+    async getMeals(dietId: string) {
+        if (!dietId) {
+            throw new BadRequestException('Diet id is required');
+        }
+
+        return await this.prisma.meal.findMany({
+            where: {
+                dietId,
+            },
+        });
     }
 }
