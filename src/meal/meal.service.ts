@@ -19,7 +19,6 @@ export class MealService {
                 cal: dto.cal,
                 protein: dto.protein,
                 type: dto.type,
-                day: dto.day,
                 dietId: dto.dietId,
             },
         });
@@ -50,7 +49,6 @@ export class MealService {
                 cal: dto.cal,
                 protein: dto.protein,
                 type: dto.type,
-                day: dto.day,
             },
         });
     }

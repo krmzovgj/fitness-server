@@ -17,8 +17,8 @@ model User {
     age       Int
     gender    String
     role      UserRole?
-    workouts  Workout?  @relation("ClientWorkoutRelation")
-    diet      Diet?     @relation("ClientDietRelation")
+    workouts  Workout[] @relation("ClientWorkoutRelation")
+    diet      Diet[]    @relation("ClientDietRelation")
     password  String
 }
 
@@ -26,8 +26,7 @@ model Exercise {
     id        String   @id @default(cuid())
     name      String
     sets      Int
-    reps      Int
-    day       Day
+    reps      String
     workout   Workout  @relation(fields: [workoutId], references: [id])
     workoutId String
     createdAt DateTime @default(now())
@@ -40,9 +39,8 @@ model Meal {
     description String
     dietId      String
     cal         Int?
-    protein Int?
-    type MealType
-    day       Day
+    protein     Int?
+    type        MealType
     diet        Diet     @relation(fields: [dietId], references: [id])
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
@@ -51,22 +49,24 @@ model Meal {
 model Workout {
     id        String     @id @default(cuid())
     name      String
+    day       Day
     exercises Exercise[]
-    clientId  Int        @unique
+    clientId  Int        
     client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id])
 }
 
 model Diet {
     id       String @id @default(cuid())
     name     String
+    day      Day
     meals    Meal[]
-    clientId Int    @unique
+    clientId Int    
     client   User   @relation("ClientDietRelation", fields: [clientId], references: [id])
 }
 
 enum Day {
     MONDAY
-    TUESEDAY
+    TUESDAY
     WEDNESDAY
     THURSDAY
     FRIDAY

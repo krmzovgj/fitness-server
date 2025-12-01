@@ -26,12 +26,6 @@ export class CreateMealDto {
     type: MealType;
 
     @IsNotEmpty()
-    @IsEnum(Day, {
-        message: 'Day must be between MONDAY and SUNDAY',
-    })
-    day: Day;
-
-    @IsNotEmpty()
     @IsString()
     dietId: string;
 }

@@ -18,7 +18,6 @@ export class ExerciseService {
                 name: dto.name,
                 sets: dto.sets,
                 reps: dto.reps,
-                day: dto.day,
                 workoutId: dto.workoutId,
             },
         });
@@ -47,7 +46,6 @@ export class ExerciseService {
                 name: dto.name,
                 sets: dto.sets,
                 reps: dto.reps,
-                day: dto.day,
             },
         });
     }

@@ -5,39 +5,43 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
+import { UpdateWorkoutDto } from './dto/update-workout.dto';
 
 @Injectable()
 export class WorkoutService {
     constructor(private prisma: PrismaService) {}
 
     async createWorkout(dto: CreateWorkoutDto) {
-        const client = await this.prisma.user.findUnique({
+        const existing = await this.prisma.workout.findFirst({
             where: {
-                id: dto.clientId,
-                role: 'CLIENT',
+                day: dto.day,
+                clientId: dto.clientId,
             },
         });
 
-        if (!client) {
-            throw new NotFoundException('Client not found');
+        if (existing) {
+            throw new BadRequestException(
+                `Workout already exists for ${dto.day}`,
+            );
         }
 
         return await this.prisma.workout.create({
             data: {
-                name: `${client.firstName}'s Workout`,
-                clientId: client.id,
+                name: dto.name,
+                day: dto.day,
+                clientId: dto.clientId,
             },
         });
     }
 
-    async getClientsWorkout(clientId: number) {
+    async getClientsWorkouts(clientId: number) {
         if (!clientId) {
             throw new BadRequestException('Client id is required');
         }
 
-        return await this.prisma.workout.findUnique({
+        return await this.prisma.workout.findMany({
             where: {
-                clientId
+                clientId,
             },
         });
     }
@@ -52,5 +56,27 @@ export class WorkoutService {
                 workoutId,
             },
         });
+    }
+
+    async updateWorkout(workoutId: string, dto: UpdateWorkoutDto) {
+        if (!workoutId) {
+            throw new BadRequestException('Workout id is required');
+        }
+
+        const updatedWorkout = await this.prisma.workout.update({
+            where: {
+                id: workoutId,
+            },
+            data: {
+                name: dto.name,
+                day: dto.day,
+            },
+        });
+
+        if (!updatedWorkout) {
+            throw new NotFoundException('Workout not found');
+        }
+
+        return updatedWorkout
     }
 }

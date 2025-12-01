@@ -7,16 +7,16 @@ export class UpdateExerciseDto {
     name: string;
 
     @IsNotEmpty()
-    @IsNumber()
-    reps: number;
+    @IsString()
+    reps: string;
 
     @IsNotEmpty()
     @IsNumber()
     sets: number;
 
-    @IsNotEmpty()
     @IsEnum(Day, {
         message: 'Day must be between MONDAY and SUNDAY',
     })
+    @IsNotEmpty()
     day: Day;
 }

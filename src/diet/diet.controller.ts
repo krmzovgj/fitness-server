@@ -1,29 +1,16 @@
 import {
-    Body,
     Controller,
     Get,
     Param,
     ParseIntPipe,
-    Post,
-    UseGuards,
+    UseGuards
 } from '@nestjs/common';
-import { DietService } from './diet.service';
 import { AuthGuard } from 'src/auth/auth.guard';
-import { CreateDietDto } from './dto/create-diet.dto';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { UserRole } from 'src/auth/roles.enum';
+import { DietService } from './diet.service';
 
 @Controller('diet')
 export class DietController {
     constructor(private dietService: DietService) {}
-
-    @Post()
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(UserRole.TRAINER)
-    createDiet(@Body() dto: CreateDietDto) {
-        return this.dietService.createDiet(dto);
-    }
 
     @Get(':clientId')
     @UseGuards(AuthGuard)

@@ -1,7 +1,7 @@
 import { Day } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateWorkoutDto {
+export class UpdateWorkoutDto {
     @IsNotEmpty()
     @IsString()
     name: string;
@@ -14,5 +14,5 @@ export class CreateWorkoutDto {
 
     @IsNotEmpty()
     @IsNumber()
-    clientId: number;
+    clientId: number
 }
