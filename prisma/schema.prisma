@@ -15,11 +15,12 @@ model User {
     weight    Int
     height    Int
     age       Int
-    gender    String
+    gender    Gender
     role      UserRole?
     workouts  Workout[] @relation("ClientWorkoutRelation")
     diet      Diet[]    @relation("ClientDietRelation")
     password  String
+    createdAt DateTime @default(now())
 }
 
 model Exercise {
@@ -51,8 +52,10 @@ model Workout {
     name      String
     day       Day
     exercises Exercise[]
-    clientId  Int        
+    clientId  Int
     client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id])
+
+    @@unique([day, clientId])
 }
 
 model Diet {
@@ -60,8 +63,10 @@ model Diet {
     name     String
     day      Day
     meals    Meal[]
-    clientId Int    
+    clientId Int
     client   User   @relation("ClientDietRelation", fields: [clientId], references: [id])
+
+    @@unique([day, clientId])
 }
 
 enum Day {
@@ -84,4 +89,9 @@ enum MealType {
     LUNCH
     DINNER
     SNACK
+}
+
+enum Gender {
+    MALE
+    FEMALE
 }

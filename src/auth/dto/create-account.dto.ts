@@ -1,4 +1,4 @@
-import { UserRole } from '@prisma/client';
+import { Gender, UserRole } from '@prisma/client';
 import {
     IsEmail,
     IsEnum,
@@ -8,33 +8,35 @@ import {
 } from 'class-validator';
 
 export class CreateAccountDto {
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     firstName: string;
 
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     lastName: string;
 
-    @IsEmail()
     @IsNotEmpty()
+    @IsEmail()
     email: string;
 
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
     weight: number;
 
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
     height: number;
 
-    @IsNumber()
     @IsNotEmpty()
+    @IsNumber()
     age: number;
 
-    @IsString()
     @IsNotEmpty()
-    gender: string;
+    @IsEnum(Gender, {
+        message: 'Gender must be either MALE or FEMALE',
+    })
+    gender: Gender;
 
     @IsNotEmpty()
     @IsEnum(UserRole, {
@@ -42,7 +44,7 @@ export class CreateAccountDto {
     })
     role: UserRole;
 
-    @IsString()
     @IsNotEmpty()
+    @IsString()
     password: string;
 }

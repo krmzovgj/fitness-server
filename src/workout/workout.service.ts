@@ -12,26 +12,21 @@ export class WorkoutService {
     constructor(private prisma: PrismaService) {}
 
     async createWorkout(dto: CreateWorkoutDto) {
-        const existing = await this.prisma.workout.findFirst({
-            where: {
-                day: dto.day,
-                clientId: dto.clientId,
-            },
-        });
-
-        if (existing) {
-            throw new BadRequestException(
-                `Workout already exists for ${dto.day}`,
-            );
+        try {
+            return await this.prisma.workout.create({
+                data: {
+                    name: dto.name,
+                    day: dto.day,
+                    clientId: dto.clientId,
+                },
+            });
+        } catch (error) {
+            if (error.code === 'P2002') {
+                throw new BadRequestException(
+                    `Another workout for ${dto.day} already exists for this client`,
+                );
+            }
         }
-
-        return await this.prisma.workout.create({
-            data: {
-                name: dto.name,
-                day: dto.day,
-                clientId: dto.clientId,
-            },
-        });
     }
 
     async getClientsWorkouts(clientId: number) {
@@ -59,24 +54,34 @@ export class WorkoutService {
     }
 
     async updateWorkout(workoutId: string, dto: UpdateWorkoutDto) {
-        if (!workoutId) {
-            throw new BadRequestException('Workout id is required');
+        try {
+            if (!workoutId) {
+                throw new BadRequestException('Workout id is required');
+            }
+
+            const updatedWorkout = await this.prisma.workout.update({
+                where: {
+                    id: workoutId,
+                },
+                data: {
+                    name: dto.name,
+                    day: dto.day,
+                },
+            });
+
+            if (!updatedWorkout) {
+                throw new NotFoundException('Workout not found');
+            }
+
+            return updatedWorkout;
+        } catch (error) {
+            return await this.prisma.workout.create({
+                data: {
+                    name: dto.name,
+                    day: dto.day,
+                    clientId: dto.clientId,
+                },
+            });
         }
-
-        const updatedWorkout = await this.prisma.workout.update({
-            where: {
-                id: workoutId,
-            },
-            data: {
-                name: dto.name,
-                day: dto.day,
-            },
-        });
-
-        if (!updatedWorkout) {
-            throw new NotFoundException('Workout not found');
-        }
-
-        return updatedWorkout
     }
 }
