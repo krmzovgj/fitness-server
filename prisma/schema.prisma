@@ -28,6 +28,7 @@ model Exercise {
     name      String
     sets      Int
     reps      String
+    actualPerformance String?
     workout   Workout  @relation(fields: [workoutId], references: [id])
     workoutId String
     createdAt DateTime @default(now())

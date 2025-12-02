@@ -1,5 +1,4 @@
-import { Day } from '@prisma/client';
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class UpdateExerciseDto {
     @IsNotEmpty()
@@ -14,9 +13,7 @@ export class UpdateExerciseDto {
     @IsNumber()
     sets: number;
 
-    @IsEnum(Day, {
-        message: 'Day must be between MONDAY and SUNDAY',
-    })
     @IsNotEmpty()
-    day: Day;
+    @IsString()
+    actualPerformance: string;
 }

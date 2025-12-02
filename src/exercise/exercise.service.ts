@@ -46,6 +46,7 @@ export class ExerciseService {
                 name: dto.name,
                 sets: dto.sets,
                 reps: dto.reps,
+                actualPerformance: dto.actualPerformance,
             },
         });
     }

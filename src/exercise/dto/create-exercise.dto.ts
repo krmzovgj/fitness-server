@@ -1,19 +1,19 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class CreateExerciseDto {
     @IsNotEmpty()
     @IsString()
-    name: string
+    name: string;
 
     @IsNotEmpty()
     @IsString()
-    reps: string
+    reps: string;
 
     @IsNotEmpty()
     @IsNumber()
-    sets: number
+    sets: number;
 
     @IsNotEmpty()
     @IsString()
-    workoutId: string
+    workoutId: string;
 }

@@ -4,10 +4,21 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateDietDto } from './dto/create-diet.dto';
 
 @Injectable()
 export class DietService {
     constructor(private prisma: PrismaService) {}
+
+    async createDiet(dto: CreateDietDto) {
+        return await this.prisma.diet.create({
+            data: {
+                name: dto.name,
+                day: dto.day,
+                clientId: dto.clientId,
+            },
+        });
+    }
 
     async getClientsDiet(clientId: number) {
         if (!clientId) {
