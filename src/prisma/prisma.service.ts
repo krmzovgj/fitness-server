@@ -5,7 +5,7 @@ import {
     OnModuleInit,
 } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg'; // NEW: PostgreSQL adapter
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '../generated/client/client';  // ← FIXED IMPORT: Use relative path to generated client
 import 'dotenv/config';
 import { Pool } from 'pg'; // NEW: Native JS PostgreSQL driver
 import { removePasswordMiddleware } from './prisma.middleware';
@@ -25,11 +25,10 @@ export class PrismaService
         }
         const pool = new Pool({ connectionString });
 
-        // NEW: Create the adapter with the pool
         const adapter = new PrismaPg(pool);
 
         super({
-            adapter, // REQUIRED: Pass the adapter for direct connection
+            adapter, 
             log: ['query', 'info', 'warn', 'error'],
         });
         
