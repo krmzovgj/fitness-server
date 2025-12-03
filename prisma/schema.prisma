@@ -1,6 +1,8 @@
 generator client {
-    provider      = "prisma-client-js"
-    binaryTargets = ["native"]
+  provider = "prisma-client"
+  output   = "../src/generated/client"  // Custom output: keeps it in your src, not node_modules
+  engineType = "client"                 // Pure JS engine (no Rust binaries—key for Vercel)
+  binaryTargets = ["native"]            // Works cross-platform; add "linux-musl" if needed for Vercel
 }
 
 datasource db {
