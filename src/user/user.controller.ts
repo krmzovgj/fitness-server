@@ -1,10 +1,12 @@
 import {
     Body,
     Controller,
+    Delete,
     Get,
     Param,
     ParseIntPipe,
     Post,
+    Put,
     Req,
     UseGuards,
 } from '@nestjs/common';
@@ -15,6 +17,7 @@ import type { Request } from 'express';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
 import { UserRole } from 'src/auth/roles.enum';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
 export class UserController {
@@ -46,5 +49,18 @@ export class UserController {
     @UseGuards(AuthGuard)
     getUserById(@Param('userId', ParseIntPipe) userId: number) {
         return this.userService.getUserById(userId);
+    }
+
+    @Put(':userId')
+    @UseGuards(AuthGuard)
+    updateUser(@Param('userId') userId: number, @Body() dto: UpdateUserDto) {
+        return this.userService.updateUser(userId, dto);
+    }
+
+    @Delete(':userId')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(UserRole.TRAINER)
+    deleteClient(@Param('userId') userId: number) {
+        return this.userService.deleteClient(userId);
     }
 }

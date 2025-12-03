@@ -20,19 +20,19 @@ model User {
     workouts  Workout[] @relation("ClientWorkoutRelation")
     diet      Diet[]    @relation("ClientDietRelation")
     password  String
-    createdAt DateTime @default(now())
+    createdAt DateTime  @default(now())
 }
 
 model Exercise {
-    id        String   @id @default(cuid())
-    name      String
-    sets      Int
-    reps      String
+    id                String   @id @default(cuid())
+    name              String
+    sets              Int
+    reps              String
     actualPerformance String?
-    workout   Workout  @relation(fields: [workoutId], references: [id])
-    workoutId String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+    workout           Workout  @relation(fields: [workoutId], references: [id])
+    workoutId         String
+    createdAt         DateTime @default(now())
+    updatedAt         DateTime @updatedAt
 }
 
 model Meal {
@@ -54,7 +54,7 @@ model Workout {
     day       Day
     exercises Exercise[]
     clientId  Int
-    client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id])
+    client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id], onDelete: Cascade)
 
     @@unique([day, clientId])
 }
@@ -65,7 +65,7 @@ model Diet {
     day      Day
     meals    Meal[]
     clientId Int
-    client   User   @relation("ClientDietRelation", fields: [clientId], references: [id])
+    client   User   @relation("ClientDietRelation", fields: [clientId], references: [id], onDelete: Cascade)
 
     @@unique([day, clientId])
 }

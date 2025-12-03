@@ -7,6 +7,7 @@ import bcrypt from 'bcrypt';
 import { CreateAccountDto } from 'src/auth/dto/create-account.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { userPublicFields } from 'src/types/user-public-fields';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -108,5 +109,41 @@ export class UserService {
             },
             select: userPublicFields,
         });
+    }
+
+    async updateUser(userId: number, dto: UpdateUserDto) {
+        if (!userId) {
+            throw new BadRequestException('User id is required');
+        }
+
+        return await this.prisma.user.update({
+            where: {
+                id: userId,
+            },
+            data: {
+                firstName: dto.firstName,
+                lastName: dto.lastName,
+                email: dto.email,
+                age: dto.age,
+                gender: dto.gender,
+                height: dto.height,
+                weight: dto.weight,
+            },
+            select: userPublicFields,
+        });
+    }
+
+    async deleteClient(userId: number) {
+        if (!userId) {
+            throw new BadRequestException('User id is required');
+        }
+
+        await this.prisma.user.delete({
+            where: {
+                id: userId,
+            },
+        });
+
+        return { message: 'Client deleted' };
     }
 }
