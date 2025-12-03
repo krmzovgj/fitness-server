@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateDietDto } from './dto/create-diet.dto';
+import { UpdateDietDto } from './dto/update-diet.dto';
 
 @Injectable()
 export class DietService {
@@ -50,6 +51,23 @@ export class DietService {
         return await this.prisma.meal.findMany({
             where: {
                 dietId,
+            },
+        });
+    }
+
+    async updateDiet(dietId: string, dto: UpdateDietDto) {
+        if (!dietId) {
+            throw new BadRequestException('Diet id is required');
+        }
+
+        return await this.prisma.diet.update({
+            where: {
+                id: dietId,
+            },
+            data: {
+                name: dto.name,
+                day: dto.day,
+                clientId: dto.clientId,
             },
         });
     }

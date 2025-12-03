@@ -5,6 +5,7 @@ import {
     Param,
     ParseIntPipe,
     Post,
+    Put,
     UseGuards,
 } from '@nestjs/common';
 import { UserRole } from '@prisma/client';
@@ -13,6 +14,7 @@ import { Roles } from 'src/auth/roles.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { DietService } from './diet.service';
 import { CreateDietDto } from './dto/create-diet.dto';
+import { UpdateDietDto } from './dto/update-diet.dto';
 
 @Controller('diet')
 export class DietController {
@@ -35,5 +37,12 @@ export class DietController {
     @UseGuards(AuthGuard)
     getMeals(@Param('dietId') dietId: string) {
         return this.dietService.getMeals(dietId);
+    }
+
+    @Put(':dietId')
+    @UseGuards(AuthGuard, RolesGuard)
+    @Roles(UserRole.TRAINER)
+    updateDiet(@Param('dietId') dietId: string, @Body() dto: UpdateDietDto) {
+        return this.dietService.updateDiet(dietId, dto);
     }
 }
