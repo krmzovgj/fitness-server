@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from "src/generated/client/client";
 
 export function removePasswordMiddleware() {
   return Prisma.defineExtension({

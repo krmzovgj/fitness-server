@@ -1,4 +1,3 @@
-import { Gender } from '@prisma/client';
 import {
     IsEmail,
     IsEnum,
@@ -6,6 +5,7 @@ import {
     IsNumber,
     IsString,
 } from 'class-validator';
+import { Gender } from 'src/generated/client/enums';
 
 export class UpdateUserDto {
     @IsNotEmpty()

@@ -12,9 +12,9 @@ import { AuthGuard } from 'src/auth/auth.guard';
 import { WorkoutService } from './workout.service';
 import { RolesGuard } from 'src/auth/roles.guard';
 import { Roles } from 'src/auth/roles.decorator';
-import { UserRole } from '@prisma/client';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
+import { UserRole } from 'src/generated/client/enums';
 
 @Controller('workout')
 export class WorkoutController {

@@ -1,5 +1,5 @@
-import { Day, MealType } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { MealType } from 'src/generated/client/enums';
 
 export class CreateMealDto {
     @IsNotEmpty()
