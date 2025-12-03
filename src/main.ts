@@ -18,6 +18,9 @@ async function bootstrap() {
         }),
     );
 
-    await app.listen(process.env.PORT ?? 3000);
+    // Only listen locally; Vercel handles requests via handler
+    if (process.env.NODE_ENV !== 'production') {
+        await app.listen(process.env.PORT ?? 3000);
+    }
 }
 bootstrap();
