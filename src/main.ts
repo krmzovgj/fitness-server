@@ -1,23 +1,43 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import express from 'express';
+import serverlessExpress from '@vendia/serverless-express';
+import { Handler, Context, Callback } from 'aws-lambda';
 
-async function bootstrap() {
+let cachedServer: Handler;
+
+async function bootstrapServer(): Promise<Handler> {
+  if (!cachedServer) {
     const app = await NestFactory.create(AppModule);
 
+    // CORS
     app.enableCors({
-        origin: true, 
-        credentials: true,
+      origin: true,
+      credentials: true,
     });
 
+    // Validation pipe
     app.useGlobalPipes(
-        new ValidationPipe({
-            whitelist: true, // removes fields not in DTO
-            forbidNonWhitelisted: true,
-            transform: true, // transforms payloads to DTO classes
-        }),
+      new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        transform: true,
+      }),
     );
 
-    await app.listen(process.env.PORT ?? 3000);
+    await app.init();
+
+    // Wrap in serverless-express
+    const expressApp = express();
+    expressApp.use(app.getHttpAdapter().getInstance()); // attach Nest app to Express
+    cachedServer = serverlessExpress({ app: expressApp });
+  }
+  return cachedServer;
 }
-bootstrap();
+
+// Export handler for Vercel
+export const handler: Handler = async (event: any, context: Context, callback: Callback) => {
+  const srv = await bootstrapServer();
+  return srv(event, context, callback);
+};
