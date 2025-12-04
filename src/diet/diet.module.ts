@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DietService } from './diet.service';
 import { DietController } from './diet.controller';
-import { PrismaModule } from 'src/prisma/prisma.module';
+import { PrismaModule } from '../prisma/prisma.module';
 
 @Module({
     imports: [PrismaModule],

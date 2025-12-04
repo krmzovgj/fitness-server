@@ -4,8 +4,8 @@ import {
     NotFoundException,
 } from '@nestjs/common';
 import bcrypt from 'bcrypt';
-import { CreateAccountDto } from 'src/auth/dto/create-account.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { CreateAccountDto } from '../auth/dto/create-account.dto';
+import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { userPublicFields } from '../types/user-public-fields';
 

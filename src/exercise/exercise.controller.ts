@@ -7,10 +7,10 @@ import {
     Put,
     UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { UserRole } from 'src/auth/roles.enum';
-import { RolesGuard } from 'src/auth/roles.guard';
+import { AuthGuard } from '../auth/auth.guard';
+import { Roles } from '../auth/roles.decorator';
+import { UserRole } from '../auth/roles.enum';
+import { RolesGuard } from '../auth/roles.guard';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { ExerciseService } from './exercise.service';

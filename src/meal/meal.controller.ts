@@ -8,12 +8,12 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { MealService } from './meal.service';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { CreateMealDto } from './dto/create-meal.dto';
 import { UpdateMealDto } from './dto/update-meal.dto';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { UserRole } from 'src/auth/roles.enum';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
+import { UserRole } from '../auth/roles.enum';
 
 @Controller('meal')
 export class MealController {

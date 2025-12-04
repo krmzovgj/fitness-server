@@ -10,13 +10,13 @@ import {
     Req,
     UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { CreateAccountDto } from 'src/auth/dto/create-account.dto';
+import { AuthGuard } from '../auth/auth.guard';
+import { CreateAccountDto } from '../auth/dto/create-account.dto';
 import { UserService } from './user.service';
 import type { Request } from 'express';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles.decorator';
-import { UserRole } from 'src/auth/roles.enum';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
+import { UserRole } from '../auth/roles.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')

@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { Day } from 'src/generated/client/enums';
+import { Day } from '../generated/client/enums';
 
 export class CreateWorkoutDto {
     @IsNotEmpty()

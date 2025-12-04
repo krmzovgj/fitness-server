@@ -8,13 +8,13 @@ import {
     Put,
     UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from 'src/auth/auth.guard';
+import { AuthGuard } from '../auth/auth.guard';
 import { WorkoutService } from './workout.service';
-import { RolesGuard } from 'src/auth/roles.guard';
-import { Roles } from 'src/auth/roles.decorator';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../auth/roles.decorator';
 import { CreateWorkoutDto } from './dto/create-workout.dto';
 import { UpdateWorkoutDto } from './dto/update-workout.dto';
-import { UserRole } from 'src/generated/client/enums';
+import { UserRole } from '../generated/client/enums';
 
 @Controller('workout')
 export class WorkoutController {
