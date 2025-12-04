@@ -7,7 +7,7 @@ import bcrypt from 'bcrypt';
 import { CreateAccountDto } from 'src/auth/dto/create-account.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { userPublicFields } from 'src/types/user-public-fields';
+import { userPublicFields } from '../types/user-public-fields';
 
 @Injectable()
 export class UserService {
