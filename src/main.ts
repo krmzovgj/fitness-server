@@ -1,16 +1,13 @@
+// src/main.ts - RECOMMENDED VERCEL PATTERN
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { ExpressAdapter } from '@nestjs/platform-express';
-import express from 'express';
-import serverlessExpress from '@vendia/serverless-express';
+// NOTE: We don't need ExpressAdapter, express, or serverlessExpress imports anymore
 
-let cachedServer: any;
+let cachedApp;
 
-async function bootstrapServer() {
-  const expressApp = express();
-
-  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
 
   app.enableCors({
     origin: true,
@@ -25,15 +22,21 @@ async function bootstrapServer() {
     }),
   );
 
+  // Vercel handles app.listen() and Express conversion, 
+  // we just need to initialize the application and return the instance
   await app.init();
-
-  // Wrap the express app into a serverless handler
-  return serverlessExpress({ app: expressApp });
+  return app;
 }
 
-export default async function handler(req: any, res: any) {
-  if (!cachedServer) {
-    cachedServer = await bootstrapServer();
+export default async (req, res) => {
+  if (!cachedApp) {
+    // Start Nest only once on cold start
+    cachedApp = await bootstrap();
   }
-  return cachedServer(req, res);
-}
+  
+  // Use the underlying HTTP server handler (Express) to process the request
+  const server = cachedApp.getHttpAdapter().getInstance();
+  
+  // Return the result of the server's request handling
+  return server(req, res);
+};
