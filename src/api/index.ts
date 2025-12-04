@@ -2,12 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../app.module';
 import { ValidationPipe } from '@nestjs/common';
 import serverlessExpress from '@vendia/serverless-express';
-import express from 'express';
 
 let server: any;
 
 async function bootstrap() {
-    const expressApp = express();
+    // Create Nest app normally
     const app = await NestFactory.create(AppModule);
 
     app.enableCors({
@@ -23,14 +22,18 @@ async function bootstrap() {
         }),
     );
 
-    await app.init(); // important for serverless
+    await app.init();
+
+    // Get the underlying Express instance
+    const expressApp = app.getHttpAdapter().getInstance();
     return expressApp;
 }
 
+// Export the Vercel serverless handler
 export default async function handler(req: any, res: any) {
     if (!server) {
-        const app = await bootstrap();
-        server = serverlessExpress({ app });
+        const expressApp = await bootstrap();
+        server = serverlessExpress({ app: expressApp });
     }
     return server(req, res);
 }
