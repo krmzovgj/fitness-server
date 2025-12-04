@@ -1,13 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../app.module';
 import { ValidationPipe } from '@nestjs/common';
-import serverlessExpress from '@vendia/serverless-express';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
 
-let server: any;
+// Use a variable to cache the server instance between cold starts
+let cachedServer: any;
 
-async function bootstrap() {
-    // Create Nest app normally
-    const app = await NestFactory.create(AppModule);
+async function createExpressApp(expressApp: express.Express): Promise<any> {
+    // Create Nest app using the Express adapter
+    const app = await NestFactory.create(
+        AppModule,
+        new ExpressAdapter(expressApp),
+    );
 
     app.enableCors({
         origin: true,
@@ -22,18 +27,24 @@ async function bootstrap() {
         }),
     );
 
+    // Initialize the app before returning the raw Express app
     await app.init();
-
-    // Get the underlying Express instance
-    const expressApp = app.getHttpAdapter().getInstance();
     return expressApp;
 }
 
-// Export the Vercel serverless handler
+// Export the Vercel serverless handler function
 export default async function handler(req: any, res: any) {
-    if (!server) {
-        const expressApp = await bootstrap();
-        server = serverlessExpress({ app: expressApp });
+    if (!cachedServer) {
+        // 1. Create a new Express instance
+        const expressApp = express();
+
+        // 2. Wrap the Nest application around the Express instance
+        await createExpressApp(expressApp);
+
+        // 3. Cache the Express instance for subsequent requests
+        cachedServer = expressApp;
     }
-    return server(req, res);
+
+    // 4. Handle the request using the cached Express app
+    cachedServer(req, res);
 }
