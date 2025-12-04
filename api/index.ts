@@ -1,12 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../src/app.module';  // Adjust path if needed
+import { AppModule } from '../src/app.module';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { ValidationPipe } from '@nestjs/common';
+import serverlessExpress from '@vendia/serverless-express';
 
-let cachedApp;  // Cache the initialized app globally (serverless-friendly)
+let cachedServer; // Cache the wrapped server
 
-async function getApp() {
-    if (!cachedApp) {
+async function bootstrap() {
+    if (!cachedServer) {
         const app = await NestFactory.create(AppModule);
 
         app.enableCors({
@@ -22,14 +23,15 @@ async function getApp() {
             }),
         );
 
-        await app.init();  // Initializes modules, runs OnModuleInit (e.g., Prisma $connect)
-        cachedApp = app;
+        await app.init(); // Runs OnModuleInit (e.g., Prisma $connect)
+
+        const expressApp = app.getHttpAdapter().getInstance();
+        cachedServer = serverlessExpress({ app: expressApp });
     }
-    return cachedApp;
+    return cachedServer;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    const app = await getApp();
-    const expressHandler = app.getHttpAdapter().getInstance();
-    expressHandler(req, res);
+    const server = await bootstrap();
+    return server(req, res);
 }
