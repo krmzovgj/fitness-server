@@ -1,26 +1,39 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
+import serverlessExpress from '@vendia/serverless-express';
 
-async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+let cachedServer: any;
 
-    app.enableCors({
-        origin: true, 
-        credentials: true,
-    });
+async function bootstrapServer() {
+  const expressApp = express();
 
-    app.useGlobalPipes(
-        new ValidationPipe({
-            whitelist: true, // removes fields not in DTO
-            forbidNonWhitelisted: true,
-            transform: true, // transforms payloads to DTO classes
-        }),
-    );
+  const app = await NestFactory.create(AppModule, new ExpressAdapter(expressApp));
 
-    // Only listen locally; Vercel handles requests via handler
-    if (process.env.NODE_ENV !== 'production') {
-        await app.listen(process.env.PORT ?? 3000);
-    }
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
+
+  await app.init();
+
+  // Wrap the express app into a serverless handler
+  return serverlessExpress({ app: expressApp });
 }
-bootstrap();
+
+export default async function handler(req: any, res: any) {
+  if (!cachedServer) {
+    cachedServer = await bootstrapServer();
+  }
+  return cachedServer(req, res);
+}
