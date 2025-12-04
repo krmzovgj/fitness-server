@@ -5,7 +5,7 @@ import {
     IsNumber,
     IsString,
 } from 'class-validator';
-import { Gender, UserRole } from '../generated/client/enums';
+import { Gender, UserRole } from 'src/generated/client/enums';
 
 export class CreateAccountDto {
     @IsNotEmpty()

@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
-import { MealType } from '../generated/client/enums';
+import { MealType } from 'src/generated/client/enums';
 
 export class UpdateMealDto {
     @IsNotEmpty()

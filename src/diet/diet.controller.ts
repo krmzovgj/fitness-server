@@ -14,7 +14,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { DietService } from './diet.service';
 import { CreateDietDto } from './dto/create-diet.dto';
 import { UpdateDietDto } from './dto/update-diet.dto';
-import { UserRole } from '../generated/client/enums';
+import { UserRole } from 'src/generated/client/enums';
 
 @Controller('diet')
 export class DietController {
