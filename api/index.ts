@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './src/app.module';
+import { AppModule } from '../src/app.module';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { ValidationPipe } from '@nestjs/common';
 import serverlessExpress from '@vendia/serverless-express';
