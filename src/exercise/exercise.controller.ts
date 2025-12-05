@@ -27,8 +27,7 @@ export class ExerciseController {
     }
 
     @Put(':exerciseId')
-    @UseGuards(AuthGuard, RolesGuard)
-    @Roles(UserRole.TRAINER)
+    @UseGuards(AuthGuard)
     updateExercise(
         @Param('exerciseId') exerciseId: string,
         @Body() dto: UpdateExerciseDto,

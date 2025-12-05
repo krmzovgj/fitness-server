@@ -32,7 +32,7 @@ model Exercise {
     sets              Int
     reps              String
     actualPerformance String?
-    workout           Workout  @relation(fields: [workoutId], references: [id])
+    workout           Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
     workoutId         String
     createdAt         DateTime @default(now())
     updatedAt         DateTime @updatedAt
@@ -46,7 +46,7 @@ model Meal {
     cal         Int?
     protein     Int?
     type        MealType
-    diet        Diet     @relation(fields: [dietId], references: [id])
+    diet        Diet     @relation(fields: [dietId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())
     updatedAt   DateTime @updatedAt
 }
