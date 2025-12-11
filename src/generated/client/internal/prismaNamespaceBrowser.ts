@@ -52,6 +52,7 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
+  Tenant: 'Tenant',
   Exercise: 'Exercise',
   Meal: 'Meal',
   Workout: 'Workout',
@@ -84,11 +85,21 @@ export const UserScalarFieldEnum = {
   age: 'age',
   gender: 'gender',
   role: 'role',
+  tenantId: 'tenantId',
   password: 'password',
   createdAt: 'createdAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+export const TenantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  subdomain: 'subdomain'
+} as const
+
+export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
 
 
 export const ExerciseScalarFieldEnum = {

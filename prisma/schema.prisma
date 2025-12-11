@@ -1,9 +1,9 @@
 generator client {
     provider      = "prisma-client"
     output        = "../src/generated/client"
-    engineType    = "client" 
+    engineType    = "client"
     binaryTargets = ["native"]
-    moduleFormat  = "cjs" 
+    moduleFormat  = "cjs"
 }
 
 datasource db {
@@ -20,10 +20,19 @@ model User {
     age       Int
     gender    Gender
     role      UserRole?
+    tenantId  String?
+    Tenant    Tenant?   @relation(fields: [tenantId], references: [id])
     workouts  Workout[] @relation("ClientWorkoutRelation")
     diet      Diet[]    @relation("ClientDietRelation")
     password  String
     createdAt DateTime  @default(now())
+}
+
+model Tenant {
+    id        String @id @default(cuid())
+    name      String
+    subdomain String @unique
+    users     User[]
 }
 
 model Exercise {
@@ -84,6 +93,7 @@ enum Day {
 }
 
 enum UserRole {
+    ADMIN
     TRAINER
     CLIENT
 }

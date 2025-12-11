@@ -427,10 +427,6 @@ export type ExerciseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type ExerciseCreateNestedManyWithoutWorkoutInput = {
   create?: Prisma.XOR<Prisma.ExerciseCreateWithoutWorkoutInput, Prisma.ExerciseUncheckedCreateWithoutWorkoutInput> | Prisma.ExerciseCreateWithoutWorkoutInput[] | Prisma.ExerciseUncheckedCreateWithoutWorkoutInput[]
   connectOrCreate?: Prisma.ExerciseCreateOrConnectWithoutWorkoutInput | Prisma.ExerciseCreateOrConnectWithoutWorkoutInput[]

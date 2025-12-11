@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class UpdateExerciseDto {
     @IsNotEmpty()
@@ -13,7 +13,7 @@ export class UpdateExerciseDto {
     @IsNumber()
     sets: number;
 
-    @IsNotEmpty()
     @IsString()
-    actualPerformance: string;
+    @IsOptional()
+    actualPerformance?: string | null;
 }

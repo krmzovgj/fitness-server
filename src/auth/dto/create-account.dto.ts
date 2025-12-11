@@ -3,6 +3,7 @@ import {
     IsEnum,
     IsNotEmpty,
     IsNumber,
+    IsOptional,
     IsString,
 } from 'class-validator';
 import { Gender, UserRole } from 'src/generated/client/enums';
@@ -43,6 +44,10 @@ export class CreateAccountDto {
         message: 'Role must be either TRAINER or CLIENT',
     })
     role: UserRole;
+
+    @IsString()
+    @IsOptional()
+    tenantId?: string | null;
 
     @IsNotEmpty()
     @IsString()

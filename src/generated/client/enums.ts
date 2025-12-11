@@ -23,6 +23,7 @@ export type Day = (typeof Day)[keyof typeof Day]
 
 
 export const UserRole = {
+  ADMIN: 'ADMIN',
   TRAINER: 'TRAINER',
   CLIENT: 'CLIENT'
 } as const

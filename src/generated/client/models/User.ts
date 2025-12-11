@@ -50,6 +50,7 @@ export type UserMinAggregateOutputType = {
   age: number | null
   gender: $Enums.Gender | null
   role: $Enums.UserRole | null
+  tenantId: string | null
   password: string | null
   createdAt: Date | null
 }
@@ -64,6 +65,7 @@ export type UserMaxAggregateOutputType = {
   age: number | null
   gender: $Enums.Gender | null
   role: $Enums.UserRole | null
+  tenantId: string | null
   password: string | null
   createdAt: Date | null
 }
@@ -78,6 +80,7 @@ export type UserCountAggregateOutputType = {
   age: number
   gender: number
   role: number
+  tenantId: number
   password: number
   createdAt: number
   _all: number
@@ -108,6 +111,7 @@ export type UserMinAggregateInputType = {
   age?: true
   gender?: true
   role?: true
+  tenantId?: true
   password?: true
   createdAt?: true
 }
@@ -122,6 +126,7 @@ export type UserMaxAggregateInputType = {
   age?: true
   gender?: true
   role?: true
+  tenantId?: true
   password?: true
   createdAt?: true
 }
@@ -136,6 +141,7 @@ export type UserCountAggregateInputType = {
   age?: true
   gender?: true
   role?: true
+  tenantId?: true
   password?: true
   createdAt?: true
   _all?: true
@@ -237,6 +243,7 @@ export type UserGroupByOutputType = {
   age: number
   gender: $Enums.Gender
   role: $Enums.UserRole | null
+  tenantId: string | null
   password: string
   createdAt: Date
   _count: UserCountAggregateOutputType | null
@@ -274,8 +281,10 @@ export type UserWhereInput = {
   age?: Prisma.IntFilter<"User"> | number
   gender?: Prisma.EnumGenderFilter<"User"> | $Enums.Gender
   role?: Prisma.EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
+  tenantId?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  Tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
   workouts?: Prisma.WorkoutListRelationFilter
   diet?: Prisma.DietListRelationFilter
 }
@@ -290,8 +299,10 @@ export type UserOrderByWithRelationInput = {
   age?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  Tenant?: Prisma.TenantOrderByWithRelationInput
   workouts?: Prisma.WorkoutOrderByRelationAggregateInput
   diet?: Prisma.DietOrderByRelationAggregateInput
 }
@@ -309,8 +320,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   age?: Prisma.IntFilter<"User"> | number
   gender?: Prisma.EnumGenderFilter<"User"> | $Enums.Gender
   role?: Prisma.EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
+  tenantId?: Prisma.StringNullableFilter<"User"> | string | null
   password?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  Tenant?: Prisma.XOR<Prisma.TenantNullableScalarRelationFilter, Prisma.TenantWhereInput> | null
   workouts?: Prisma.WorkoutListRelationFilter
   diet?: Prisma.DietListRelationFilter
 }, "id" | "email">
@@ -325,6 +338,7 @@ export type UserOrderByWithAggregationInput = {
   age?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   role?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenantId?: Prisma.SortOrderInput | Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -347,6 +361,7 @@ export type UserScalarWhereWithAggregatesInput = {
   age?: Prisma.IntWithAggregatesFilter<"User"> | number
   gender?: Prisma.EnumGenderWithAggregatesFilter<"User"> | $Enums.Gender
   role?: Prisma.EnumUserRoleNullableWithAggregatesFilter<"User"> | $Enums.UserRole | null
+  tenantId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -362,6 +377,7 @@ export type UserCreateInput = {
   role?: $Enums.UserRole | null
   password: string
   createdAt?: Date | string
+  Tenant?: Prisma.TenantCreateNestedOneWithoutUsersInput
   workouts?: Prisma.WorkoutCreateNestedManyWithoutClientInput
   diet?: Prisma.DietCreateNestedManyWithoutClientInput
 }
@@ -376,6 +392,7 @@ export type UserUncheckedCreateInput = {
   age: number
   gender: $Enums.Gender
   role?: $Enums.UserRole | null
+  tenantId?: string | null
   password: string
   createdAt?: Date | string
   workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutClientInput
@@ -393,6 +410,7 @@ export type UserUpdateInput = {
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Tenant?: Prisma.TenantUpdateOneWithoutUsersNestedInput
   workouts?: Prisma.WorkoutUpdateManyWithoutClientNestedInput
   diet?: Prisma.DietUpdateManyWithoutClientNestedInput
 }
@@ -407,6 +425,7 @@ export type UserUncheckedUpdateInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutClientNestedInput
@@ -423,6 +442,7 @@ export type UserCreateManyInput = {
   age: number
   gender: $Enums.Gender
   role?: $Enums.UserRole | null
+  tenantId?: string | null
   password: string
   createdAt?: Date | string
 }
@@ -450,6 +470,7 @@ export type UserUncheckedUpdateManyInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -464,6 +485,7 @@ export type UserCountOrderByAggregateInput = {
   age?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -485,6 +507,7 @@ export type UserMaxOrderByAggregateInput = {
   age?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -499,6 +522,7 @@ export type UserMinOrderByAggregateInput = {
   age?: Prisma.SortOrder
   gender?: Prisma.SortOrder
   role?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   password?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -508,6 +532,16 @@ export type UserSumOrderByAggregateInput = {
   weight?: Prisma.SortOrder
   height?: Prisma.SortOrder
   age?: Prisma.SortOrder
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type UserScalarRelationFilter = {
@@ -539,6 +573,52 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type UserCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput> | Prisma.UserCreateWithoutTenantInput[] | Prisma.UserUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantInput | Prisma.UserCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.UserCreateManyTenantInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput> | Prisma.UserCreateWithoutTenantInput[] | Prisma.UserUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantInput | Prisma.UserCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.UserCreateManyTenantInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput> | Prisma.UserCreateWithoutTenantInput[] | Prisma.UserUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantInput | Prisma.UserCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutTenantInput | Prisma.UserUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.UserCreateManyTenantInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutTenantInput | Prisma.UserUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutTenantInput | Prisma.UserUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput> | Prisma.UserCreateWithoutTenantInput[] | Prisma.UserUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutTenantInput | Prisma.UserCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutTenantInput | Prisma.UserUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.UserCreateManyTenantInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutTenantInput | Prisma.UserUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutTenantInput | Prisma.UserUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
 export type UserCreateNestedOneWithoutWorkoutsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutWorkoutsInput, Prisma.UserUncheckedCreateWithoutWorkoutsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkoutsInput
@@ -567,6 +647,81 @@ export type UserUpdateOneRequiredWithoutDietNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDietInput, Prisma.UserUpdateWithoutDietInput>, Prisma.UserUncheckedUpdateWithoutDietInput>
 }
 
+export type UserCreateWithoutTenantInput = {
+  firstName: string
+  lastName: string
+  email: string
+  weight: number
+  height: number
+  age: number
+  gender: $Enums.Gender
+  role?: $Enums.UserRole | null
+  password: string
+  createdAt?: Date | string
+  workouts?: Prisma.WorkoutCreateNestedManyWithoutClientInput
+  diet?: Prisma.DietCreateNestedManyWithoutClientInput
+}
+
+export type UserUncheckedCreateWithoutTenantInput = {
+  id?: number
+  firstName: string
+  lastName: string
+  email: string
+  weight: number
+  height: number
+  age: number
+  gender: $Enums.Gender
+  role?: $Enums.UserRole | null
+  password: string
+  createdAt?: Date | string
+  workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutClientInput
+  diet?: Prisma.DietUncheckedCreateNestedManyWithoutClientInput
+}
+
+export type UserCreateOrConnectWithoutTenantInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput>
+}
+
+export type UserCreateManyTenantInputEnvelope = {
+  data: Prisma.UserCreateManyTenantInput | Prisma.UserCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutTenantInput, Prisma.UserUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutTenantInput, Prisma.UserUncheckedCreateWithoutTenantInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutTenantInput, Prisma.UserUncheckedUpdateWithoutTenantInput>
+}
+
+export type UserUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.IntFilter<"User"> | number
+  firstName?: Prisma.StringFilter<"User"> | string
+  lastName?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  weight?: Prisma.IntFilter<"User"> | number
+  height?: Prisma.IntFilter<"User"> | number
+  age?: Prisma.IntFilter<"User"> | number
+  gender?: Prisma.EnumGenderFilter<"User"> | $Enums.Gender
+  role?: Prisma.EnumUserRoleNullableFilter<"User"> | $Enums.UserRole | null
+  tenantId?: Prisma.StringNullableFilter<"User"> | string | null
+  password?: Prisma.StringFilter<"User"> | string
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+}
+
 export type UserCreateWithoutWorkoutsInput = {
   firstName: string
   lastName: string
@@ -578,6 +733,7 @@ export type UserCreateWithoutWorkoutsInput = {
   role?: $Enums.UserRole | null
   password: string
   createdAt?: Date | string
+  Tenant?: Prisma.TenantCreateNestedOneWithoutUsersInput
   diet?: Prisma.DietCreateNestedManyWithoutClientInput
 }
 
@@ -591,6 +747,7 @@ export type UserUncheckedCreateWithoutWorkoutsInput = {
   age: number
   gender: $Enums.Gender
   role?: $Enums.UserRole | null
+  tenantId?: string | null
   password: string
   createdAt?: Date | string
   diet?: Prisma.DietUncheckedCreateNestedManyWithoutClientInput
@@ -623,6 +780,7 @@ export type UserUpdateWithoutWorkoutsInput = {
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Tenant?: Prisma.TenantUpdateOneWithoutUsersNestedInput
   diet?: Prisma.DietUpdateManyWithoutClientNestedInput
 }
 
@@ -636,6 +794,7 @@ export type UserUncheckedUpdateWithoutWorkoutsInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   diet?: Prisma.DietUncheckedUpdateManyWithoutClientNestedInput
@@ -652,6 +811,7 @@ export type UserCreateWithoutDietInput = {
   role?: $Enums.UserRole | null
   password: string
   createdAt?: Date | string
+  Tenant?: Prisma.TenantCreateNestedOneWithoutUsersInput
   workouts?: Prisma.WorkoutCreateNestedManyWithoutClientInput
 }
 
@@ -665,6 +825,7 @@ export type UserUncheckedCreateWithoutDietInput = {
   age: number
   gender: $Enums.Gender
   role?: $Enums.UserRole | null
+  tenantId?: string | null
   password: string
   createdAt?: Date | string
   workouts?: Prisma.WorkoutUncheckedCreateNestedManyWithoutClientInput
@@ -697,6 +858,7 @@ export type UserUpdateWithoutDietInput = {
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  Tenant?: Prisma.TenantUpdateOneWithoutUsersNestedInput
   workouts?: Prisma.WorkoutUpdateManyWithoutClientNestedInput
 }
 
@@ -710,9 +872,69 @@ export type UserUncheckedUpdateWithoutDietInput = {
   age?: Prisma.IntFieldUpdateOperationsInput | number
   gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
   role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  tenantId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   password?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type UserCreateManyTenantInput = {
+  id?: number
+  firstName: string
+  lastName: string
+  email: string
+  weight: number
+  height: number
+  age: number
+  gender: $Enums.Gender
+  role?: $Enums.UserRole | null
+  password: string
+  createdAt?: Date | string
+}
+
+export type UserUpdateWithoutTenantInput = {
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.IntFieldUpdateOperationsInput | number
+  height?: Prisma.IntFieldUpdateOperationsInput | number
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workouts?: Prisma.WorkoutUpdateManyWithoutClientNestedInput
+  diet?: Prisma.DietUpdateManyWithoutClientNestedInput
+}
+
+export type UserUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.IntFieldUpdateOperationsInput | number
+  height?: Prisma.IntFieldUpdateOperationsInput | number
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workouts?: Prisma.WorkoutUncheckedUpdateManyWithoutClientNestedInput
+  diet?: Prisma.DietUncheckedUpdateManyWithoutClientNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.IntFieldUpdateOperationsInput | number
+  height?: Prisma.IntFieldUpdateOperationsInput | number
+  age?: Prisma.IntFieldUpdateOperationsInput | number
+  gender?: Prisma.EnumGenderFieldUpdateOperationsInput | $Enums.Gender
+  role?: Prisma.NullableEnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -765,8 +987,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   age?: boolean
   gender?: boolean
   role?: boolean
+  tenantId?: boolean
   password?: boolean
   createdAt?: boolean
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
   workouts?: boolean | Prisma.User$workoutsArgs<ExtArgs>
   diet?: boolean | Prisma.User$dietArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -782,8 +1006,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   age?: boolean
   gender?: boolean
   role?: boolean
+  tenantId?: boolean
   password?: boolean
   createdAt?: boolean
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -796,8 +1022,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   age?: boolean
   gender?: boolean
   role?: boolean
+  tenantId?: boolean
   password?: boolean
   createdAt?: boolean
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -810,22 +1038,29 @@ export type UserSelectScalar = {
   age?: boolean
   gender?: boolean
   role?: boolean
+  tenantId?: boolean
   password?: boolean
   createdAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "weight" | "height" | "age" | "gender" | "role" | "password" | "createdAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "firstName" | "lastName" | "email" | "weight" | "height" | "age" | "gender" | "role" | "tenantId" | "password" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
   workouts?: boolean | Prisma.User$workoutsArgs<ExtArgs>
   diet?: boolean | Prisma.User$dietArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
+}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  Tenant?: boolean | Prisma.User$TenantArgs<ExtArgs>
+}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    Tenant: Prisma.$TenantPayload<ExtArgs> | null
     workouts: Prisma.$WorkoutPayload<ExtArgs>[]
     diet: Prisma.$DietPayload<ExtArgs>[]
   }
@@ -839,6 +1074,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     age: number
     gender: $Enums.Gender
     role: $Enums.UserRole | null
+    tenantId: string | null
     password: string
     createdAt: Date
   }, ExtArgs["result"]["user"]>
@@ -1235,6 +1471,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  Tenant<T extends Prisma.User$TenantArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$TenantArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   workouts<T extends Prisma.User$workoutsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workoutsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkoutPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   diet<T extends Prisma.User$dietArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dietArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DietPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1275,6 +1512,7 @@ export interface UserFieldRefs {
   readonly age: Prisma.FieldRef<"User", 'Int'>
   readonly gender: Prisma.FieldRef<"User", 'Gender'>
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
+  readonly tenantId: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -1526,6 +1764,10 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1596,6 +1838,10 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1662,6 +1908,25 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.Tenant
+ */
+export type User$TenantArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Tenant
+   */
+  select?: Prisma.TenantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Tenant
+   */
+  omit?: Prisma.TenantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantInclude<ExtArgs> | null
+  where?: Prisma.TenantWhereInput
 }
 
 /**
