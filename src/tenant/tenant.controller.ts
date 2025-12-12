@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, Put, UseGuards } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Get,
+    Param,
+    Post,
+    Put,
+    UseGuards,
+} from '@nestjs/common';
 import { TenantService } from './tenant.service';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { AuthGuard } from '../auth/auth.guard';
@@ -16,6 +24,11 @@ export class TenantController {
     @Roles(UserRole.ADMIN)
     createTenant(@Body() dto: CreateTenantDto) {
         return this.tenantService.createTenant(dto);
+    }
+
+    @Get(':subdomain')
+    getTenantBySubdomain(@Param('subdomain') subdomain: string) {
+        return this.tenantService.getTenantBySubdomain(subdomain);
     }
 
     @Put(':tenantId')

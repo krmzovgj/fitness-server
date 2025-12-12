@@ -40,3 +40,51 @@ export default async (req, res) => {
   // Return the result of the server's request handling
   return server(req, res);
 };
+
+// // src/main.ts
+// import { NestFactory } from '@nestjs/core';
+// import { AppModule } from './app.module';
+// import { ValidationPipe } from '@nestjs/common';
+
+// let cachedServer; // ← will hold the raw Express server on Vercel
+
+// async function bootstrap() {
+//   const app = await NestFactory.create(AppModule);
+
+//   app.enableCors({
+//     origin: true,
+//     credentials: true,
+//   });
+
+//   app.useGlobalPipes(
+//     new ValidationPipe({
+//       whitelist: true,
+//       forbidNonWhitelisted: true,
+//       transform: true,
+//     }),
+//   );
+
+//   // ←←←← THIS IS THE KEY LINE FOR LOCAL DEV
+//   await app.listen(process.env.PORT || 3000);
+
+//   return app;
+// }
+
+// // ──────────────────────────────────────────────────────────────
+// // 1. LOCAL DEVELOPMENT → runs normally
+// // ──────────────────────────────────────────────────────────────
+// if (process.env.NODE_ENV !== 'production' || process.env.VERCEL) {
+//   // When you run `npm run start:dev` or `npm run start:prod` locally
+//   bootstrap();
+// }
+
+// // ──────────────────────────────────────────────────────────────
+// // 2. VERCEL SERVERLESS → exports handler (runs on cold start)
+// // ──────────────────────────────────────────────────────────────
+// export default async function handler(req: any, res: any) {
+//   if (!cachedServer) {
+//     const app = await bootstrap();                     // creates Nest app
+//     cachedServer = app.getHttpAdapter().getInstance();  // extracts Express server
+//   }
+//   return cachedServer(req, res);
+// }

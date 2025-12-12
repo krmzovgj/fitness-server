@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+    BadRequestException,
+    Injectable,
+    NotFoundException,
+} from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTenantDto } from './dto/create-tenant.dto';
 import { UpdateTenantDto } from './dto/update-tenant.dto';
@@ -26,6 +30,20 @@ export class TenantService {
                 subdomain: dto.subdomain,
             },
         });
+    }
+
+    async getTenantBySubdomain(subdomain: string) {
+        const tenant = await this.prisma.tenant.findUnique({
+            where: {
+                subdomain,
+            },
+        });
+
+        if (!tenant) {
+            throw new NotFoundException('Tenant not found');
+        }
+
+        return tenant;
     }
 
     async updateTenant(tenantId: string, dto: UpdateTenantDto) {
