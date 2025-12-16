@@ -38,7 +38,7 @@ export class UserController {
         return this.userService.createClient(dto);
     }
 
-    @Get('client:tenantId')
+    @Get('client/:tenantId')
     @UseGuards(AuthGuard, RolesGuard)
     @Roles(UserRole.TRAINER)
     getClients(@Param('tenantId') tenantId: string) {
