@@ -104,10 +104,11 @@ export class UserService {
         return user;
     }
 
-    async getClients() {
+    async getClients(tenantId: string) {
         return await this.prisma.user.findMany({
             where: {
                 role: 'CLIENT',
+                tenantId,
             },
             select: userPublicFields,
         });

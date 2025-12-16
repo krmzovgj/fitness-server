@@ -8,5 +8,6 @@ export const userPublicFields = {
     age: true,
     gender: true,
     role: true,
+    tenantId: true,
     createdAt: true,
 };
