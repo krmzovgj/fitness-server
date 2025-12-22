@@ -11,16 +11,14 @@ async function bootstrap() {
 
     app.enableCors({
         origin: (origin, callback) => {
-            if (!origin) return callback(null, true); // SSR / server-to-server
-
+            if (!origin) return callback(null, true); // server-side requests
             if (
                 origin === 'https://mycoach.mk' ||
                 origin.endsWith('.mycoach.mk')
             ) {
-                callback(null, true);
-            } else {
-                callback(new Error('Not allowed by CORS'));
+                return callback(null, true);
             }
+            return callback(new Error('Not allowed by CORS'));
         },
         credentials: true,
     });
@@ -35,10 +33,18 @@ async function bootstrap() {
 
     // Vercel handles app.listen() and Express conversion,
     // we just need to initialize the application and return the instance
-    await app.init();
+    app.useGlobalPipes(
+        new ValidationPipe({
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        }),
+    );
 
     const server = app.getHttpAdapter().getInstance();
-    server.disable('etag'); // prevents 304 Not Modified
+
+    // ✅ Disable 304 caching so CORS headers are always correct
+    server.disable('etag');
     server.use((req, res, next) => {
         res.setHeader('Vary', 'Origin');
         res.setHeader(
@@ -48,12 +54,11 @@ async function bootstrap() {
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
 
-        if (req.method === 'OPTIONS') {
-            return res.sendStatus(204);
-        }
+        if (req.method === 'OPTIONS') return res.sendStatus(204);
         next();
     });
 
+    await app.init();
     return app;
 }
 
