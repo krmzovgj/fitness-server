@@ -7,38 +7,49 @@ import { ValidationPipe } from '@nestjs/common';
 let cachedApp;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create(AppModule);
 
-  app.enableCors({
-    origin: true,
-    credentials: true,
-  });
+    app.enableCors({
+        origin: (origin, callback) => {
+            if (!origin) return callback(null, true); // SSR / server-to-server
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    }),
-  );
+            if (
+                origin === 'https://mycoach.mk' ||
+                origin.endsWith('.mycoach.mk')
+            ) {
+                callback(null, true);
+            } else {
+                callback(new Error('Not allowed by CORS'));
+            }
+        },
+        credentials: true,
+    });
 
-  // Vercel handles app.listen() and Express conversion, 
-  // we just need to initialize the application and return the instance
-  await app.init();
-  return app;
+    app.useGlobalPipes(
+        new ValidationPipe({
+            whitelist: true,
+            forbidNonWhitelisted: true,
+            transform: true,
+        }),
+    );
+
+    // Vercel handles app.listen() and Express conversion,
+    // we just need to initialize the application and return the instance
+    await app.init();
+    return app;
 }
 
 export default async (req, res) => {
-  if (!cachedApp) {
-    // Start Nest only once on cold start
-    cachedApp = await bootstrap();
-  }
-  
-  // Use the underlying HTTP server handler (Express) to process the request
-  const server = cachedApp.getHttpAdapter().getInstance();
-  
-  // Return the result of the server's request handling
-  return server(req, res);
+    if (!cachedApp) {
+        // Start Nest only once on cold start
+        cachedApp = await bootstrap();
+    }
+
+    // Use the underlying HTTP server handler (Express) to process the request
+    const server = cachedApp.getHttpAdapter().getInstance();
+
+    // Return the result of the server's request handling
+    return server(req, res);
 };
 
 // // src/main.ts
