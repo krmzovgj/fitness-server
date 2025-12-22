@@ -36,6 +36,24 @@ async function bootstrap() {
     // Vercel handles app.listen() and Express conversion,
     // we just need to initialize the application and return the instance
     await app.init();
+
+    const server = app.getHttpAdapter().getInstance();
+    server.disable('etag'); // prevents 304 Not Modified
+    server.use((req, res, next) => {
+        res.setHeader('Vary', 'Origin');
+        res.setHeader(
+            'Cache-Control',
+            'no-store, no-cache, must-revalidate, proxy-revalidate',
+        );
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+
+        if (req.method === 'OPTIONS') {
+            return res.sendStatus(204);
+        }
+        next();
+    });
+
     return app;
 }
 
