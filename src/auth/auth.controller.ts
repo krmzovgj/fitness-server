@@ -1,6 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { CreateAccountDto } from './dto/create-account.dto';
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Post,
+    Req,
+} from '@nestjs/common';
+import { type Request } from 'express';
 import { AuthService } from './auth.service';
+import { CreateAccountDto } from './dto/create-account.dto';
 import { SignInDto } from './dto/sign-in.dto';
 
 @Controller('auth')
@@ -13,7 +20,14 @@ export class AuthController {
     }
 
     @Post('sign-in')
-    signIn(@Body() dto: SignInDto) {
-        return this.authService.signIn(dto);
+    signIn(@Req() req: Request, @Body() dto: SignInDto) {
+        const tenantIdHeaders = req.headers['tenantid'];
+        const tenantId = String(tenantIdHeaders);
+
+        if (!tenantIdHeaders) {
+            throw new BadRequestException('Tenant id is required');
+        }
+
+        return this.authService.signIn(dto, tenantId);
     }
 }

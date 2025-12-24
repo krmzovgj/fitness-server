@@ -18,10 +18,11 @@ export class AuthService {
         return this.userService.createUser(dto);
     }
 
-    async signIn(dto: SignInDto) {
+    async signIn(dto: SignInDto, tenantId: string) {
         const user = await this.prisma.user.findUnique({
             where: {
                 email: dto.email,
+                tenantId,
             },
         });
 
