@@ -11,7 +11,7 @@ async function bootstrap() {
 
     app.enableCors({
         origin: (origin, callback) => {
-            if (!origin) return callback(null, true); // server-side requests
+            if (!origin) return callback(null, true); 
             if (
                 origin === 'https://mycoach.mk' ||
                 origin.endsWith('.mycoach.mk')
@@ -31,8 +31,6 @@ async function bootstrap() {
         }),
     );
 
-    // Vercel handles app.listen() and Express conversion,
-    // we just need to initialize the application and return the instance
     app.useGlobalPipes(
         new ValidationPipe({
             whitelist: true,
@@ -43,7 +41,6 @@ async function bootstrap() {
 
     const server = app.getHttpAdapter().getInstance();
 
-    // ✅ Disable 304 caching so CORS headers are always correct
     server.disable('etag');
     server.use((req, res, next) => {
         res.setHeader('Vary', 'Origin');
@@ -64,14 +61,11 @@ async function bootstrap() {
 
 export default async (req, res) => {
     if (!cachedApp) {
-        // Start Nest only once on cold start
         cachedApp = await bootstrap();
     }
 
-    // Use the underlying HTTP server handler (Express) to process the request
     const server = cachedApp.getHttpAdapter().getInstance();
 
-    // Return the result of the server's request handling
     return server(req, res);
 };
 
