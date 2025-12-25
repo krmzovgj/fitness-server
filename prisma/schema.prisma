@@ -65,19 +65,22 @@ model Workout {
     name      String
     day       Day
     exercises Exercise[]
+    restDay   Boolean    @default(false)
     clientId  Int
     client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id], onDelete: Cascade)
+    updatedAt DateTime   @default(now()) @updatedAt
 
     @@unique([day, clientId])
 }
 
 model Diet {
-    id       String @id @default(cuid())
-    name     String
-    day      Day
-    meals    Meal[]
-    clientId Int
-    client   User   @relation("ClientDietRelation", fields: [clientId], references: [id], onDelete: Cascade)
+    id        String   @id @default(cuid())
+    name      String
+    day       Day
+    meals     Meal[]
+    clientId  Int
+    client    User     @relation("ClientDietRelation", fields: [clientId], references: [id], onDelete: Cascade)
+    updatedAt DateTime @default(now()) @updatedAt
 
     @@unique([day, clientId])
 }

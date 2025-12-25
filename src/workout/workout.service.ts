@@ -17,6 +17,7 @@ export class WorkoutService {
                 data: {
                     name: dto.name,
                     day: dto.day,
+                    restDay: dto.restDay,
                     clientId: dto.clientId,
                 },
             });
@@ -66,6 +67,7 @@ export class WorkoutService {
                 data: {
                     name: dto.name,
                     day: dto.day,
+                    restDay: dto.restDay,
                 },
             });
 

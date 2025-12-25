@@ -222,6 +222,11 @@ export type EnumDayFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDayFilter<$PrismaModel> | $Enums.Day
 }
 
+export type BoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type EnumDayWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
   in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
@@ -230,6 +235,14 @@ export type EnumDayWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDayFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDayFilter<$PrismaModel>
+}
+
+export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 export type NestedIntFilter<$PrismaModel = never> = {
@@ -453,6 +466,11 @@ export type NestedEnumDayFilter<$PrismaModel = never> = {
   not?: Prisma.NestedEnumDayFilter<$PrismaModel> | $Enums.Day
 }
 
+export type NestedBoolFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolFilter<$PrismaModel> | boolean
+}
+
 export type NestedEnumDayWithAggregatesFilter<$PrismaModel = never> = {
   equals?: $Enums.Day | Prisma.EnumDayFieldRefInput<$PrismaModel>
   in?: $Enums.Day[] | Prisma.ListEnumDayFieldRefInput<$PrismaModel>
@@ -461,6 +479,14 @@ export type NestedEnumDayWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumDayFilter<$PrismaModel>
   _max?: Prisma.NestedEnumDayFilter<$PrismaModel>
+}
+
+export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedBoolFilter<$PrismaModel>
+  _max?: Prisma.NestedBoolFilter<$PrismaModel>
 }
 
 

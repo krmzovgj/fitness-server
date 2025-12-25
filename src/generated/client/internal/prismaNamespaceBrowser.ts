@@ -135,7 +135,9 @@ export const WorkoutScalarFieldEnum = {
   id: 'id',
   name: 'name',
   day: 'day',
-  clientId: 'clientId'
+  restDay: 'restDay',
+  clientId: 'clientId',
+  updatedAt: 'updatedAt'
 } as const
 
 export type WorkoutScalarFieldEnum = (typeof WorkoutScalarFieldEnum)[keyof typeof WorkoutScalarFieldEnum]
@@ -145,7 +147,8 @@ export const DietScalarFieldEnum = {
   id: 'id',
   name: 'name',
   day: 'day',
-  clientId: 'clientId'
+  clientId: 'clientId',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DietScalarFieldEnum = (typeof DietScalarFieldEnum)[keyof typeof DietScalarFieldEnum]

@@ -18,17 +18,19 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../auth/roles.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { TenantGuard } from 'src/tenant/tenant.guard';
 
 @Controller('user')
 export class UserController {
     constructor(private userService: UserService) {}
 
     @Get('me')
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard, TenantGuard)
     getMe(@Req() req: Request) {
         const userId = req.user.id;
+        const tenantId = req['tenantId'];
 
-        return this.userService.getUserById(userId);
+        return this.userService.getUserById(userId, tenantId);
     }
 
     @Post('client')
@@ -47,8 +49,13 @@ export class UserController {
 
     @Get(':userId')
     @UseGuards(AuthGuard)
-    getUserById(@Param('userId', ParseIntPipe) userId: number) {
-        return this.userService.getUserById(userId);
+    getUserById(
+        @Req() req: Request,
+        @Param('userId', ParseIntPipe) userId: number,
+    ) {
+        const tenantId = req['tenantId'];
+
+        return this.userService.getUserById(userId, tenantId);
     }
 
     @Put(':userId')

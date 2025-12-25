@@ -85,7 +85,7 @@ export class UserService {
         return user;
     }
 
-    async getUserById(id: number) {
+    async getUserById(id: number, tenantId: string) {
         if (!id) {
             throw new BadRequestException('User id is required');
         }
@@ -93,6 +93,7 @@ export class UserService {
         const user = await this.prisma.user.findUnique({
             where: {
                 id,
+                tenantId,
             },
             select: userPublicFields,
         });

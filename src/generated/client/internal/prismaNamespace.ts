@@ -952,7 +952,9 @@ export const WorkoutScalarFieldEnum = {
   id: 'id',
   name: 'name',
   day: 'day',
-  clientId: 'clientId'
+  restDay: 'restDay',
+  clientId: 'clientId',
+  updatedAt: 'updatedAt'
 } as const
 
 export type WorkoutScalarFieldEnum = (typeof WorkoutScalarFieldEnum)[keyof typeof WorkoutScalarFieldEnum]
@@ -962,7 +964,8 @@ export const DietScalarFieldEnum = {
   id: 'id',
   name: 'name',
   day: 'day',
-  clientId: 'clientId'
+  clientId: 'clientId',
+  updatedAt: 'updatedAt'
 } as const
 
 export type DietScalarFieldEnum = (typeof DietScalarFieldEnum)[keyof typeof DietScalarFieldEnum]
@@ -1093,6 +1096,13 @@ export type EnumDayFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
  * Reference to a field of type 'Day[]'
  */
 export type ListEnumDayFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Day[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Boolean'
+ */
+export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
 
 
