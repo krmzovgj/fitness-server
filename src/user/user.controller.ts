@@ -18,7 +18,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../auth/roles.decorator';
 import { UserRole } from '../auth/roles.enum';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { TenantGuard } from 'src/tenant/tenant.guard';
+import { TenantGuard } from '../tenant/tenant.guard';
 
 @Controller('user')
 export class UserController {
