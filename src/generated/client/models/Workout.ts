@@ -187,7 +187,7 @@ export type WorkoutGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type WorkoutGroupByOutputType = {
   id: string
-  name: string
+  name: string | null
   day: $Enums.Day
   restDay: boolean
   clientId: number
@@ -219,7 +219,7 @@ export type WorkoutWhereInput = {
   OR?: Prisma.WorkoutWhereInput[]
   NOT?: Prisma.WorkoutWhereInput | Prisma.WorkoutWhereInput[]
   id?: Prisma.StringFilter<"Workout"> | string
-  name?: Prisma.StringFilter<"Workout"> | string
+  name?: Prisma.StringNullableFilter<"Workout"> | string | null
   day?: Prisma.EnumDayFilter<"Workout"> | $Enums.Day
   restDay?: Prisma.BoolFilter<"Workout"> | boolean
   clientId?: Prisma.IntFilter<"Workout"> | number
@@ -230,7 +230,7 @@ export type WorkoutWhereInput = {
 
 export type WorkoutOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   day?: Prisma.SortOrder
   restDay?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
@@ -245,7 +245,7 @@ export type WorkoutWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.WorkoutWhereInput | Prisma.WorkoutWhereInput[]
   OR?: Prisma.WorkoutWhereInput[]
   NOT?: Prisma.WorkoutWhereInput | Prisma.WorkoutWhereInput[]
-  name?: Prisma.StringFilter<"Workout"> | string
+  name?: Prisma.StringNullableFilter<"Workout"> | string | null
   day?: Prisma.EnumDayFilter<"Workout"> | $Enums.Day
   restDay?: Prisma.BoolFilter<"Workout"> | boolean
   clientId?: Prisma.IntFilter<"Workout"> | number
@@ -256,7 +256,7 @@ export type WorkoutWhereUniqueInput = Prisma.AtLeast<{
 
 export type WorkoutOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
+  name?: Prisma.SortOrderInput | Prisma.SortOrder
   day?: Prisma.SortOrder
   restDay?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
@@ -273,7 +273,7 @@ export type WorkoutScalarWhereWithAggregatesInput = {
   OR?: Prisma.WorkoutScalarWhereWithAggregatesInput[]
   NOT?: Prisma.WorkoutScalarWhereWithAggregatesInput | Prisma.WorkoutScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Workout"> | string
-  name?: Prisma.StringWithAggregatesFilter<"Workout"> | string
+  name?: Prisma.StringNullableWithAggregatesFilter<"Workout"> | string | null
   day?: Prisma.EnumDayWithAggregatesFilter<"Workout"> | $Enums.Day
   restDay?: Prisma.BoolWithAggregatesFilter<"Workout"> | boolean
   clientId?: Prisma.IntWithAggregatesFilter<"Workout"> | number
@@ -282,7 +282,7 @@ export type WorkoutScalarWhereWithAggregatesInput = {
 
 export type WorkoutCreateInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   updatedAt?: Date | string
@@ -292,7 +292,7 @@ export type WorkoutCreateInput = {
 
 export type WorkoutUncheckedCreateInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   clientId: number
@@ -302,7 +302,7 @@ export type WorkoutUncheckedCreateInput = {
 
 export type WorkoutUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -312,7 +312,7 @@ export type WorkoutUpdateInput = {
 
 export type WorkoutUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -322,7 +322,7 @@ export type WorkoutUncheckedUpdateInput = {
 
 export type WorkoutCreateManyInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   clientId: number
@@ -331,7 +331,7 @@ export type WorkoutCreateManyInput = {
 
 export type WorkoutUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -339,7 +339,7 @@ export type WorkoutUpdateManyMutationInput = {
 
 export type WorkoutUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -467,7 +467,7 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type WorkoutCreateWithoutClientInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   updatedAt?: Date | string
@@ -476,7 +476,7 @@ export type WorkoutCreateWithoutClientInput = {
 
 export type WorkoutUncheckedCreateWithoutClientInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   updatedAt?: Date | string
@@ -514,7 +514,7 @@ export type WorkoutScalarWhereInput = {
   OR?: Prisma.WorkoutScalarWhereInput[]
   NOT?: Prisma.WorkoutScalarWhereInput | Prisma.WorkoutScalarWhereInput[]
   id?: Prisma.StringFilter<"Workout"> | string
-  name?: Prisma.StringFilter<"Workout"> | string
+  name?: Prisma.StringNullableFilter<"Workout"> | string | null
   day?: Prisma.EnumDayFilter<"Workout"> | $Enums.Day
   restDay?: Prisma.BoolFilter<"Workout"> | boolean
   clientId?: Prisma.IntFilter<"Workout"> | number
@@ -523,7 +523,7 @@ export type WorkoutScalarWhereInput = {
 
 export type WorkoutCreateWithoutExercisesInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   updatedAt?: Date | string
@@ -532,7 +532,7 @@ export type WorkoutCreateWithoutExercisesInput = {
 
 export type WorkoutUncheckedCreateWithoutExercisesInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   clientId: number
@@ -557,7 +557,7 @@ export type WorkoutUpdateToOneWithWhereWithoutExercisesInput = {
 
 export type WorkoutUpdateWithoutExercisesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -566,7 +566,7 @@ export type WorkoutUpdateWithoutExercisesInput = {
 
 export type WorkoutUncheckedUpdateWithoutExercisesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   clientId?: Prisma.IntFieldUpdateOperationsInput | number
@@ -575,7 +575,7 @@ export type WorkoutUncheckedUpdateWithoutExercisesInput = {
 
 export type WorkoutCreateManyClientInput = {
   id?: string
-  name: string
+  name?: string | null
   day: $Enums.Day
   restDay?: boolean
   updatedAt?: Date | string
@@ -583,7 +583,7 @@ export type WorkoutCreateManyClientInput = {
 
 export type WorkoutUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -592,7 +592,7 @@ export type WorkoutUpdateWithoutClientInput = {
 
 export type WorkoutUncheckedUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -601,7 +601,7 @@ export type WorkoutUncheckedUpdateWithoutClientInput = {
 
 export type WorkoutUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   day?: Prisma.EnumDayFieldUpdateOperationsInput | $Enums.Day
   restDay?: Prisma.BoolFieldUpdateOperationsInput | boolean
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -700,7 +700,7 @@ export type $WorkoutPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
+    name: string | null
     day: $Enums.Day
     restDay: boolean
     clientId: number

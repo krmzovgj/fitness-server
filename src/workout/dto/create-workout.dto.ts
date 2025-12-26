@@ -2,9 +2,8 @@ import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validat
 import { Day } from 'src/generated/client/enums';
 
 export class CreateWorkoutDto {
-    @IsNotEmpty()
     @IsString()
-    name: string;
+    name?: string;
 
     @IsEnum(Day, {
         message: 'Day must be between MONDAY and SUNDAY',

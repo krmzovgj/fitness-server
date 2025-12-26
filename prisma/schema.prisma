@@ -62,7 +62,7 @@ model Meal {
 
 model Workout {
     id        String     @id @default(cuid())
-    name      String
+    name      String?
     day       Day
     exercises Exercise[]
     restDay   Boolean    @default(false)
