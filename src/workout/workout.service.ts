@@ -39,6 +39,9 @@ export class WorkoutService {
             where: {
                 clientId,
             },
+            include: {
+                exercises: true,
+            },
         });
     }
 

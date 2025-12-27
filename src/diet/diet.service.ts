@@ -26,19 +26,12 @@ export class DietService {
             throw new BadRequestException('Client id is required');
         }
 
-        const client = await this.prisma.diet.findMany({
-            where: {
-                clientId,
-            },
-        });
-
-        if (!client) {
-            throw new NotFoundException('Client not found');
-        }
-
         return await this.prisma.diet.findMany({
             where: {
                 clientId,
+            },
+            include: {
+                meals: true,
             },
         });
     }
