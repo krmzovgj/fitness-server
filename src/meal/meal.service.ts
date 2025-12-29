@@ -18,6 +18,8 @@ export class MealService {
                 description: dto.description,
                 cal: dto.cal,
                 protein: dto.protein,
+                carbs: dto.carbs,
+                fats: dto.fats,
                 type: dto.type,
                 dietId: dto.dietId,
             },
@@ -48,6 +50,8 @@ export class MealService {
                 description: dto.description,
                 cal: dto.cal,
                 protein: dto.protein,
+                carbs: dto.carbs,
+                fats: dto.fats,
                 type: dto.type,
             },
         });

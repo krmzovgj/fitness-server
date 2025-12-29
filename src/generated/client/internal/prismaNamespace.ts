@@ -1023,6 +1023,8 @@ export const MealScalarFieldEnum = {
   dietId: 'dietId',
   cal: 'cal',
   protein: 'protein',
+  carbs: 'carbs',
+  fats: 'fats',
   type: 'type',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

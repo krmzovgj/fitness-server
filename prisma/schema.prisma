@@ -62,6 +62,8 @@ model Meal {
     dietId      String
     cal         Int?
     protein     Int?
+    carbs       Int?
+    fats        Int?
     type        MealType
     diet        Diet     @relation(fields: [dietId], references: [id], onDelete: Cascade)
     createdAt   DateTime @default(now())

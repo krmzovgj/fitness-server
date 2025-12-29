@@ -10,13 +10,17 @@ export class CreateMealDto {
     @IsString()
     description: string;
 
-    @IsNotEmpty()
     @IsNumber()
-    cal: number;
+    cal?: number;
 
-    @IsNotEmpty()
     @IsNumber()
-    protein: number;
+    protein?: number;
+
+    @IsNumber()
+    carbs?: number;
+
+    @IsNumber()
+    fats?: number;
 
     @IsNotEmpty()
     @IsEnum(MealType, {
