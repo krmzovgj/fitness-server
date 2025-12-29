@@ -36,15 +36,23 @@ model Tenant {
 }
 
 model Exercise {
-    id                String   @id @default(cuid())
-    name              String
-    sets              Int
-    reps              String
-    actualPerformance String?
-    workout           Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
-    workoutId         String
-    createdAt         DateTime @default(now())
-    updatedAt         DateTime @updatedAt
+    id        String            @id @default(cuid())
+    name      String
+    workouts  WorkoutExercise[]
+    createdAt DateTime          @default(now())
+    updatedAt DateTime          @updatedAt
+}
+
+model WorkoutExercise {
+    id         String @id @default(cuid())
+    workoutId  String
+    exerciseId String
+    sets       Int
+    reps       String
+
+    workout   Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+    exercise  Exercise @relation(fields: [exerciseId], references: [id], onDelete: Cascade)
+    updatedAt DateTime @updatedAt
 }
 
 model Meal {
@@ -61,14 +69,15 @@ model Meal {
 }
 
 model Workout {
-    id        String     @id @default(cuid())
+    id        String   @id @default(cuid())
     name      String?
     day       Day
-    exercises Exercise[]
-    restDay   Boolean    @default(false)
+    restDay   Boolean  @default(false)
     clientId  Int
-    client    User       @relation("ClientWorkoutRelation", fields: [clientId], references: [id], onDelete: Cascade)
-    updatedAt DateTime   @default(now()) @updatedAt
+    client    User     @relation("ClientWorkoutRelation", fields: [clientId], references: [id], onDelete: Cascade)
+    updatedAt DateTime @updatedAt
+
+    workoutExercises WorkoutExercise[]
 
     @@unique([day, clientId])
 }

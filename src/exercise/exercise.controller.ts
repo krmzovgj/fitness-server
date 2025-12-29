@@ -2,9 +2,11 @@ import {
     Body,
     Controller,
     Delete,
+    Get,
     Param,
     Post,
     Put,
+    Query,
     UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
@@ -24,6 +26,12 @@ export class ExerciseController {
     @Roles(UserRole.TRAINER)
     createExercise(@Body() dto: CreateExerciseDto) {
         return this.exerciseService.createExercise(dto);
+    }
+
+    @Get()
+    @UseGuards(AuthGuard)
+    getAllExercises(@Query('search') search?: string) {
+        return this.exerciseService.getAllExercises(search);
     }
 
     @Put(':exerciseId')

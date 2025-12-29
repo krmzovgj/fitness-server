@@ -35,8 +35,8 @@ export class WorkoutController {
 
     @Get(':workoutId/exercise')
     @UseGuards(AuthGuard)
-    getExercises(@Param('workoutId') workoutId: string) {
-        return this.workoutService.getExercises(workoutId);
+    getWorkoutExercise(@Param('workoutId') workoutId: string) {
+        return this.workoutService.getWorkoutExercise(workoutId);
     }
 
     @Put(':workoutId')

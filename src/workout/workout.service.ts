@@ -40,19 +40,22 @@ export class WorkoutService {
                 clientId,
             },
             include: {
-                exercises: true,
+                workoutExercises: true,
             },
         });
     }
 
-    async getExercises(workoutId: string) {
+    async getWorkoutExercise(workoutId: string) {
         if (!workoutId) {
             throw new BadRequestException('Workout id is required');
         }
 
-        return await this.prisma.exercise.findMany({
+        return await this.prisma.workoutExercise.findMany({
             where: {
                 workoutId,
+            },
+            include: {
+                exercise: true,
             },
         });
     }

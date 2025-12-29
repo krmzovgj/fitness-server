@@ -33,6 +33,11 @@ export type Tenant = Prisma.TenantModel
  */
 export type Exercise = Prisma.ExerciseModel
 /**
+ * Model WorkoutExercise
+ * 
+ */
+export type WorkoutExercise = Prisma.WorkoutExerciseModel
+/**
  * Model Meal
  * 
  */

@@ -3,6 +3,7 @@ import {
     Injectable,
     NotFoundException,
 } from '@nestjs/common';
+import { Prisma } from '../generated/client/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
@@ -15,10 +16,19 @@ export class ExerciseService {
         return await this.prisma.exercise.create({
             data: {
                 name: dto.name,
-                sets: dto.sets,
-                reps: dto.reps,
-                workoutId: dto.workoutId,
             },
+        });
+    }
+
+    async getAllExercises(search?: string) {
+        const where: Prisma.ExerciseWhereInput = search
+            ? { name: { contains: search, mode: 'insensitive' } }
+            : {};
+
+        return await this.prisma.exercise.findMany({
+            where,
+            take: 10,
+            orderBy: { name: 'asc' },
         });
     }
 
@@ -43,9 +53,6 @@ export class ExerciseService {
             },
             data: {
                 name: dto.name,
-                sets: dto.sets,
-                reps: dto.reps,
-                actualPerformance: dto.actualPerformance,
             },
         });
     }
