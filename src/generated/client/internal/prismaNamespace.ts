@@ -1010,6 +1010,7 @@ export const WorkoutExerciseScalarFieldEnum = {
   exerciseId: 'exerciseId',
   sets: 'sets',
   reps: 'reps',
+  note: 'note',
   updatedAt: 'updatedAt'
 } as const
 
@@ -1038,6 +1039,7 @@ export const WorkoutScalarFieldEnum = {
   name: 'name',
   day: 'day',
   restDay: 'restDay',
+  note: 'note',
   clientId: 'clientId',
   updatedAt: 'updatedAt'
 } as const

@@ -1,4 +1,11 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+    IsBoolean,
+    IsEnum,
+    IsNotEmpty,
+    IsNumber,
+    IsOptional,
+    IsString,
+} from 'class-validator';
 import { Day } from 'src/generated/client/enums';
 
 export class UpdateWorkoutDto {
@@ -13,6 +20,10 @@ export class UpdateWorkoutDto {
 
     @IsBoolean()
     restDay: boolean;
+
+    @IsString()
+    @IsOptional()
+    note?: string;
 
     @IsNotEmpty()
     @IsNumber()

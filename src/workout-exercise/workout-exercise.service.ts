@@ -23,6 +23,7 @@ export class WorkoutExerciseService {
             data: {
                 reps: dto.reps,
                 sets: dto.sets,
+                note: dto.note,
                 exerciseId: dto.exerciseId,
                 workoutId,
             },
@@ -45,6 +46,7 @@ export class WorkoutExerciseService {
                 data: {
                     sets: dto.sets,
                     reps: dto.reps,
+                    note: dto.note,
                     exerciseId: dto.exerciseId,
                 },
             });

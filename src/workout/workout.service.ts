@@ -30,6 +30,18 @@ export class WorkoutService {
         }
     }
 
+    async getWorkoutById(workoutId: string) {
+        if (!workoutId) {
+            throw new BadRequestException('Workout id is required');
+        }
+
+        return await this.prisma.workout.findUnique({
+            where: {
+                id: workoutId,
+            },
+        });
+    }
+
     async getClientsWorkouts(clientId: number) {
         if (!clientId) {
             throw new BadRequestException('Client id is required');
@@ -74,6 +86,7 @@ export class WorkoutService {
                     name: dto.name,
                     day: dto.day,
                     restDay: dto.restDay,
+                    note: dto.note,
                 },
             });
 

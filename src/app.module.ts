@@ -13,8 +13,18 @@ import { TenantModule } from './tenant/tenant.module';
 import { WorkoutExerciseModule } from './workout-exercise/workout-exercise.module';
 
 @Module({
-  imports: [AuthModule, UserModule, PrismaModule, WorkoutModule, ExerciseModule, MealModule, DietModule, TenantModule, WorkoutExerciseModule],
-  controllers: [AppController],
-  providers: [AppService, PrismaService],
+    imports: [
+        AuthModule,
+        UserModule,
+        PrismaModule,
+        WorkoutModule,
+        ExerciseModule,
+        MealModule,
+        DietModule,
+        TenantModule,
+        WorkoutExerciseModule,
+    ],
+    controllers: [AppController],
+    providers: [AppService, PrismaService],
 })
 export class AppModule {}

@@ -39,7 +39,7 @@ export class WorkoutExerciseController {
         @Param('workoutExerciseId') workoutExerciseId: string,
         @Body() dto: UpdateWorkoutExerciseDto,
     ) {
-        return this.workoutExerciseService.updateWorkoutExercise(
+    return this.workoutExerciseService.updateWorkoutExercise(
             workoutExerciseId,
             dto,
         );

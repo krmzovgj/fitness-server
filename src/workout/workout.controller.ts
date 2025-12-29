@@ -27,6 +27,12 @@ export class WorkoutController {
         return this.workoutService.createWorkout(dto);
     }
 
+    @Get(':workoutId')
+    @UseGuards(AuthGuard)
+    getWorkoutById(@Param('workoutId') workoutId: string) {
+        return this.workoutService.getWorkoutById(workoutId);
+    }
+
     @Get(':clientId')
     @UseGuards(AuthGuard)
     getClientsWorkouts(@Param('clientId', ParseIntPipe) clientId: number) {
