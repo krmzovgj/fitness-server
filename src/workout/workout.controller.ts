@@ -33,7 +33,7 @@ export class WorkoutController {
         return this.workoutService.getWorkoutById(workoutId);
     }
 
-    @Get(':clientId')
+    @Get('client/:clientId')
     @UseGuards(AuthGuard)
     getClientsWorkouts(@Param('clientId', ParseIntPipe) clientId: number) {
         return this.workoutService.getClientsWorkouts(clientId);
