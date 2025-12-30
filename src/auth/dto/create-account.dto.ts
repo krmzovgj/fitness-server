@@ -6,7 +6,7 @@ import {
     IsOptional,
     IsString,
 } from 'class-validator';
-import { Gender, UserRole } from 'src/generated/client/enums';
+import { Gender, UserRole } from '../../generated/client/enums';
 
 export class CreateAccountDto {
     @IsNotEmpty()
@@ -45,9 +45,9 @@ export class CreateAccountDto {
     })
     role: UserRole;
 
+    @IsNotEmpty()
     @IsString()
-    @IsOptional()
-    tenantId?: string | null;
+    tenantId: string;
 
     @IsNotEmpty()
     @IsString()
