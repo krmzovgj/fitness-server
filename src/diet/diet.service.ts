@@ -21,6 +21,21 @@ export class DietService {
         });
     }
 
+    async getDietById(dietId: string) {
+        if (!dietId) {
+            throw new BadRequestException('Diet id is required');
+        }
+
+        return await this.prisma.diet.findUnique({
+            where: {
+                id: dietId,
+            },
+            include: {
+                meals: true,
+            },
+        });
+    }
+
     async getClientsDiet(clientId: number) {
         if (!clientId) {
             throw new BadRequestException('Client id is required');

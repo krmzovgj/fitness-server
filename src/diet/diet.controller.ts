@@ -27,7 +27,13 @@ export class DietController {
         return this.dietService.createDiet(dto);
     }
 
-    @Get(':clientId')
+    @Get(':dietId')
+    @UseGuards(AuthGuard)
+    getDietById(@Param('dietId') dietId: string) {
+        return this.dietService.getDietById(dietId)
+    }
+
+    @Get('client/:clientId')
     @UseGuards(AuthGuard)
     getClientsDiet(@Param('clientId', ParseIntPipe) clientId: number) {
         return this.dietService.getClientsDiet(clientId);
