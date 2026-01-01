@@ -39,6 +39,13 @@ export class WorkoutService {
             where: {
                 id: workoutId,
             },
+            include: {
+                workoutExercises: {
+                    include: {
+                        exercise: true,
+                    },
+                },
+            },
         });
     }
 
@@ -52,7 +59,11 @@ export class WorkoutService {
                 clientId,
             },
             include: {
-                workoutExercises: true,
+                workoutExercises: {
+                    include: {
+                        exercise: true,
+                    },
+                },
             },
         });
     }
