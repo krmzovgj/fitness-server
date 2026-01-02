@@ -13,6 +13,14 @@ export class UpdateWorkoutExerciseDto {
     @IsString()
     exerciseId: string;
 
+    @IsNumber()
+    @IsOptional()
+    restBetweenSets?: number;
+
+    @IsNumber()
+    @IsOptional()
+    restAfterExercise?: number;
+
     @IsString()
     @IsOptional()
     note?: string;

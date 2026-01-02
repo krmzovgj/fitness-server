@@ -250,9 +250,9 @@ export type TenantUncheckedUpdateManyInput = {
   subdomain?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type TenantNullableScalarRelationFilter = {
-  is?: Prisma.TenantWhereInput | null
-  isNot?: Prisma.TenantWhereInput | null
+export type TenantScalarRelationFilter = {
+  is?: Prisma.TenantWhereInput
+  isNot?: Prisma.TenantWhereInput
 }
 
 export type TenantCountOrderByAggregateInput = {
@@ -279,12 +279,10 @@ export type TenantCreateNestedOneWithoutUsersInput = {
   connect?: Prisma.TenantWhereUniqueInput
 }
 
-export type TenantUpdateOneWithoutUsersNestedInput = {
+export type TenantUpdateOneRequiredWithoutUsersNestedInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutUsersInput, Prisma.TenantUncheckedCreateWithoutUsersInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutUsersInput
   upsert?: Prisma.TenantUpsertWithoutUsersInput
-  disconnect?: Prisma.TenantWhereInput | boolean
-  delete?: Prisma.TenantWhereInput | boolean
   connect?: Prisma.TenantWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutUsersInput, Prisma.TenantUpdateWithoutUsersInput>, Prisma.TenantUncheckedUpdateWithoutUsersInput>
 }

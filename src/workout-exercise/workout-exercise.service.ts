@@ -24,6 +24,8 @@ export class WorkoutExerciseService {
                 reps: dto.reps,
                 sets: dto.sets,
                 note: dto.note,
+                restBetweenSets: dto.restBetweenSets,
+                restAfterExercise: dto.restAfterExercise,
                 exerciseId: dto.exerciseId,
                 workoutId,
             },
@@ -47,6 +49,8 @@ export class WorkoutExerciseService {
                     sets: dto.sets,
                     reps: dto.reps,
                     note: dto.note,
+                    restBetweenSets: dto.restBetweenSets,
+                    restAfterExercise: dto.restAfterExercise,
                     exerciseId: dto.exerciseId,
                 },
             });
